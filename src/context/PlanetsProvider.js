@@ -5,8 +5,16 @@ import requestAPI from '../services/requestAPI';
 
 function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [filters, setFilters] = useState({
     byName: '',
+    filterNumericsValues: [
+      {
+        column: 'population',
+        comparison: 'maior que',
+        value: '0',
+      },
+    ],
   });
 
   useEffect(() => {
@@ -15,10 +23,26 @@ function PlanetsProvider({ children }) {
       setData(dataAPI);
     };
     getPlanetsAPI();
-  }, []);
+  }, [setData]);
 
   const handleFilterName = ({ target: { value } }) => {
     setFilters({ ...filters, byName: value });
+  };
+
+  const comparisonLogicImplicit = {
+    'maior que': (a, b) => Number(a) > Number(b),
+    'menor que': (a, b) => Number(a) < Number(b),
+    'igual a': (a, b) => Number(a) === Number(b),
+  };
+
+  const handleFilterData = () => {
+    const { filterNumericsValues } = filters;
+    const filterData = (data.filter((planet) => filterNumericsValues
+      .every(({ column, value, comparison }) => (
+        comparisonLogicImplicit[comparison](planet[column], value)
+      )))
+    );
+    setFilteredData(filterData);
   };
 
   return (
@@ -29,7 +53,10 @@ function PlanetsProvider({ children }) {
           setData,
           filters,
           setFilters,
-          handleFilterName }
+          handleFilterName,
+          filteredData,
+          // handleFilterNumericsValues,
+          handleFilterData }
       }
     >
       { children }

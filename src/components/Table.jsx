@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
 
 function Table() {
-  const { data, filters } = useContext(StarWarsContext);
+  const { data, filters, filteredData } = useContext(StarWarsContext);
   const [tableTitle, setTableTitle] = useState([]);
 
   useEffect(() => {
@@ -33,6 +33,14 @@ function Table() {
     ))
   );
 
+  const conditionalRender = () => {
+    if (filters.byName) {
+      return renderTable(data.filter((planet) => planet.name.includes(filters.byName)));
+    }
+    if (filters.filterNumericsValues) renderTable(filteredData);
+    return renderTable(data);
+  };
+
   return (
     <table>
       <thead>
@@ -43,10 +51,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {
-          filters.byName === '' ? renderTable(data)
-            : renderTable(data.filter((planet) => planet.name.includes(filters.byName)))
-        }
+        { conditionalRender() }
       </tbody>
     </table>
   );
