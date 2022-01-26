@@ -5,6 +5,10 @@ import requestAPI from '../services/requestAPI';
 
 function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
+  const [nameFilter, setNameFilter] = useState({
+    name: '',
+  });
+  const [dataName, setDataName] = useState('');
 
   useEffect(() => {
     const getPlanetsAPI = async () => {
@@ -15,8 +19,18 @@ function PlanetsProvider({ children }) {
   }, []);
 
   return (
-    <StarWarsContext.Provider value={ { data } }>
-      {children}
+    <StarWarsContext.Provider
+      value={
+        {
+          data,
+          nameFilter,
+          setNameFilter,
+          setData,
+          dataName,
+          setDataName }
+      }
+    >
+      { children }
     </StarWarsContext.Provider>
   );
 }
