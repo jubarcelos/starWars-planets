@@ -1,10 +1,12 @@
 import React from 'react';
-import Table from './components/Table';
 import PlanetsProvider from './context/PlanetsProvider';
+import NameFilter from './components/NameFilter';
+import Table from './components/Table';
 
 function App() {
   return (
     <PlanetsProvider>
+      <NameFilter />
       <Table />
     </PlanetsProvider>
   );
