@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
 
 function Table() {
-  const { data, nameFilter, dataName } = useContext(StarWarsContext);
+  const { data, filters } = useContext(StarWarsContext);
   const [tableTitle, setTableTitle] = useState([]);
 
   useEffect(() => {
@@ -13,8 +13,8 @@ function Table() {
     }
   }, [data]);
 
-  const renderTable = (filtered) => (
-    data.map((info) => (
+  const renderTable = (optionToFilter) => (
+    optionToFilter.map((info) => (
       <tr key={ info.name }>
         <td>{ info.name }</td>
         <td>{ info.rotation_period }</td>
@@ -44,11 +44,8 @@ function Table() {
       </thead>
       <tbody>
         {
-          nameFilter.map((name) => (
-            name === ''
-              ? renderTable(data)
-              : renderTable(dataName)
-          ))
+          filters.byName === '' ? renderTable(data)
+            : renderTable(data.filter((planet) => planet.name.includes(filters.byName)))
         }
       </tbody>
     </table>
