@@ -49,4 +49,4 @@ function Table() {
 
 export default Table;
 
-// fazer a verificação com length por ser array.
+// fazer a verificação com length quando array.
