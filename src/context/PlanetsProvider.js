@@ -44,20 +44,19 @@ function PlanetsProvider({ children }) {
     );
     setFilteredData(filterData);
   };
+  const context = {
+    data,
+    setData,
+    filters,
+    setFilters,
+    handleFilterName,
+    filteredData,
+    handleFilterData,
+  };
 
   return (
     <StarWarsContext.Provider
-      value={
-        {
-          data,
-          setData,
-          filters,
-          setFilters,
-          handleFilterName,
-          filteredData,
-          // handleFilterNumericsValues,
-          handleFilterData }
-      }
+      value={ context }
     >
       { children }
     </StarWarsContext.Provider>
