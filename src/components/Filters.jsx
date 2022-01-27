@@ -39,9 +39,6 @@ function Filters() {
     });
   };
 
-  // formula o objeto e depois seta no array.
-  // Rever essa lógica pq mudou de objeto para array.
-
   return (
     <form className="filters">
       <input
@@ -59,8 +56,13 @@ function Filters() {
           value={ filters.filterNumericsValues.column }
           onChange={ handleByNumericValues }
         >
-          { selectColumnOptions.map((option) => (
-            <option key={ option } value={ option }>{ option }</option>)) }
+          {
+            selectColumnOptions.filter((columnOption) => (
+              !filters.filterNumericsValues.some(({ column }) => column === columnOption)
+            ))
+              .map((option) => (
+                <option key={ option } value={ option }>{ option }</option>))
+          }
         </select>
       </div>
       <div className="comparisonFilter">
