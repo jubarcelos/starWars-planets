@@ -37,7 +37,9 @@ function Table() {
     if (filters.byName) {
       return renderTable(data.filter((planet) => planet.name.includes(filters.byName)));
     }
-    if (filters.filterNumericsValues) renderTable(filteredData);
+    if (filters.filterNumericsValues && filteredData.length > 0) {
+      return renderTable(filteredData);
+    }
     return renderTable(data);
   };
 
