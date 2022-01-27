@@ -1,10 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
 
 function Filters() {
+  const [numericFilters, setNumericFilters] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    value: 0,
+  });
+
   const { handleFilterName,
     filters,
-    handleFilterData,
     setFilters,
     filterNumericsValues,
   } = useContext(StarWarsContext);
@@ -20,14 +25,17 @@ function Filters() {
   const selectComparisonOptions = ['maior que', 'menor que', 'igual a'];
 
   const handleByNumericValues = ({ target: { name, value } }) => {
-    const byNumericValues = { [name]: value };
-    return byNumericValues;
+    const byNumericValues = {
+      ...numericFilters,
+      [name]: value,
+    };
+    setNumericFilters(byNumericValues);
   };
 
   const handleSubmit = () => {
     setFilters({
       ...filters,
-      filterNumericsValues: [...filterNumericsValues.concat(handleByNumericValues)],
+      filterNumericsValues: [...filterNumericsValues.concat(numericFilters)],
     });
   };
 
@@ -35,7 +43,7 @@ function Filters() {
   // Rever essa lógica pq mudou de objeto para array.
 
   return (
-    <form className="filters" onSubmit={ () => { handleSubmit(); } }>
+    <form className="filters">
       <input
         type="text"
         data-testid="name-filter"
@@ -69,16 +77,16 @@ function Filters() {
       <input
         type="number"
         data-testid="value-filter"
-        placeholder="Filtre por nome"
+        placeholder="number"
         id="valueFilter"
         name="value"
-        value={ filters.filterNumericsValues.value }
+        value={ numericFilters.value }
         onChange={ handleByNumericValues }
       />
       <button
         type="button"
         data-testid="button-filter"
-        onClick={ handleFilterData }
+        onClick={ () => handleSubmit() }
       >
         Filter
       </button>
