@@ -8,13 +8,7 @@ function PlanetsProvider({ children }) {
   const [filteredData, setFilteredData] = useState([]);
   const [filters, setFilters] = useState({
     byName: '',
-    filterNumericsValues: [
-      {
-        column: 'population',
-        comparison: 'maior que',
-        value: '0',
-      },
-    ],
+    filterNumericsValues: [],
   });
 
   useEffect(() => {
@@ -44,6 +38,13 @@ function PlanetsProvider({ children }) {
     );
     setFilteredData(filterData);
   };
+
+  useEffect(() => {
+    handleFilterData();
+  }, [filters]);
+
+  // Reference to resolve group of filters: https://dev.to/icelandico/filter-array-of-objects-with-multiple-conditions-4go3
+
   const context = {
     data,
     setData,
@@ -52,6 +53,7 @@ function PlanetsProvider({ children }) {
     handleFilterName,
     filteredData,
     handleFilterData,
+    filterNumericsValues: filters.filterNumericsValues,
   };
 
   return (
