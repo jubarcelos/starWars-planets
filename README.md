@@ -9,10 +9,15 @@ In this module the objective was  cansume a public API to make a page with simpl
 The objective of the project in this sprint was loking for informations about any of than planets using filters and conditionals.
 Also was use _context-API_ to manage to state, and use _React Hook's_ : useState, useContext, useEffect or create a customazed one.
 
-**Tecnologias Utilizadas**
+**Technologies used**
 
+- React
 - Javascript
-  -- functions
+  - functions HOF to find and filter options
+  - Array
+- Forms updates
+- context-API
+- React Hook
 
 
 * [Link to view at Github Pages]()
@@ -23,7 +28,7 @@ This project still in development and I have intention to do some things like:
 
 - [ ] Publich in Github Pages
 - [ ] Implement more interactions using Javascript.
-- [ ] Make that a responsive page.
+- [ ] Transform to a responsive CSS using grid, flex-box, mediaqueries.
 
 
 Tested by Trybe school.
