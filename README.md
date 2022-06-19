@@ -20,7 +20,7 @@ Also was use _context-API_ to manage to state, and use _React Hook's_ : useState
 - React Hook
 
 
-* [Link to view at Github Pages]()
+* INATIVE! [Link to view at Github Pages]()
 
 ### Improviments
 
